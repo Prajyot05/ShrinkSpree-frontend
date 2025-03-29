@@ -12,7 +12,6 @@ import {
   ChartData,
 } from "chart.js";
 
-// Register chart.js components
 ChartJS.register(
   BarElement,
   Tooltip,
@@ -22,7 +21,6 @@ ChartJS.register(
   Filler
 );
 
-// ✅ Define TypeScript interface for props
 interface GraphProps {
   graphData: { clickDate: string; count: number }[];
 }
@@ -90,7 +88,7 @@ const Graph: React.FC<GraphProps> = ({ graphData }) => {
     },
   };
 
-  return <Bar className="w-full" data={data} options={options} />;
+  return <Bar className="w-full h-full" data={data} options={options} />;
 };
 
 export default Graph;

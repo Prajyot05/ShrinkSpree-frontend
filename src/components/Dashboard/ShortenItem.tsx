@@ -74,36 +74,37 @@ const ShortenItem: React.FC<ShortenItemProps> = ({
   }, [selectedUrl]);
 
   return (
-    <div className="bg-slate-100 shadow-lg border border-dotted border-slate-500 px-6 sm:py-1 py-3 rounded-md transition-all duration-100">
-      <div className="flex sm:flex-row flex-col sm:justify-between w-full sm:gap-0 gap-5 py-5">
-        <div className="flex-1 sm:space-y-1 max-w-full overflow-x-auto overflow-y-hidden">
-          <div className="text-slate-900 pb-1 sm:pb-0 flex items-center gap-2">
+    <div className="bg-[#F1F5F9] shadow-lg border border-gray-300 px-6 py-3 rounded-md transition-all duration-150">
+      <div className="flex flex-col sm:flex-row sm:justify-between w-full gap-5 py-5">
+        {/* URL and Details */}
+        <div className="flex-1 space-y-2 overflow-x-auto">
+          <div className="flex items-center gap-2 pb-1">
             <Link
               target="_blank"
-              className="text-[17px] font-montserrat font-[600] text-linkColor"
+              className="text-[17px] font-semibold text-[#1D4ED8] whitespace-nowrap"
               to={`/s/${shortUrl}`}
             >
               {subDomain}/s/{shortUrl}
             </Link>
-            <FaExternalLinkAlt className="text-linkColor" />
+            <FaExternalLinkAlt className="text-[#1D4ED8]" />
           </div>
 
-          <div className="flex items-center gap-1">
-            <h3 className="text-slate-700 font-[400] text-[17px]">
+          <div className="flex items-center">
+            <h3 className="text-gray-800 text-[17px] break-all">
               {originalUrl}
             </h3>
           </div>
 
-          <div className="flex items-center gap-8 pt-6">
-            <div className="flex gap-1 items-center font-semibold text-green-800">
-              <MdOutlineAdsClick className="text-[22px] me-1" />
+          <div className="flex items-center gap-8 pt-4">
+            <div className="flex items-center gap-1 font-semibold text-[#1D4ED8]">
+              <MdOutlineAdsClick className="text-[22px]" />
               <span className="text-[16px]">{clickCount}</span>
               <span className="text-[15px]">
                 {clickCount === 1 ? "Click" : "Clicks"}
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-semibold text-lg text-slate-800">
+            <div className="flex items-center gap-2 font-semibold text-lg text-gray-800">
               <FaRegCalendarAlt />
               <span className="text-[17px]">
                 {dayjs(createdDate).format("MMM DD, YYYY")}
@@ -112,12 +113,13 @@ const ShortenItem: React.FC<ShortenItemProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-1 sm:justify-end items-center gap-4">
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row justify-end items-center gap-4">
           <CopyToClipboard
             text={`${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${shortUrl}`}
             onCopy={() => setIsCopied(true)}
           >
-            <div className="flex cursor-pointer gap-1 items-center bg-btnColor py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white">
+            <div className="flex cursor-pointer gap-1 items-center bg-[#1D4ED8] py-2 font-semibold shadow-md px-6 rounded-md text-white transition hover:bg-[#1E40AF]">
               <button>{isCopied ? "Copied" : "Copy"}</button>
               {isCopied ? (
                 <LiaCheckSolid className="text-md" />
@@ -129,7 +131,7 @@ const ShortenItem: React.FC<ShortenItemProps> = ({
 
           <div
             onClick={() => analyticsHandler(shortUrl)}
-            className="flex cursor-pointer gap-1 items-center bg-rose-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white"
+            className="flex cursor-pointer gap-1 items-center bg-[#DC2626] py-2 font-semibold shadow-md px-6 rounded-md text-white transition hover:bg-[#B91C1C]"
           >
             <button>Analytics</button>
             <MdAnalytics className="text-md" />
@@ -137,10 +139,11 @@ const ShortenItem: React.FC<ShortenItemProps> = ({
         </div>
       </div>
 
+      {/* Analytics Section */}
       {analyticToggle && (
-        <div className="max-h-96 sm:mt-0 mt-5 min-h-96 relative border-t-2 w-full overflow-hidden">
+        <div className="mt-5 border-t-2 pt-4 w-full relative rounded-md overflow-hidden">
           {loader ? (
-            <div className="min-h-[calc(450px-140px)] flex justify-center items-center w-full">
+            <div className="h-[350px] flex justify-center items-center w-full">
               <div className="flex flex-col items-center gap-1">
                 <Hourglass
                   visible={true}
@@ -149,19 +152,19 @@ const ShortenItem: React.FC<ShortenItemProps> = ({
                   ariaLabel="hourglass-loading"
                   colors={["#306cce", "#72a1ed"]}
                 />
-                <p className="text-slate-700">Please Wait...</p>
+                <p className="text-gray-700">Please Wait...</p>
               </div>
             </div>
           ) : (
             <>
               {analyticsData.length === 0 ? (
-                <div className="absolute flex flex-col justify-center sm:items-center items-end w-full left-0 top-0 bottom-0 right-0 m-auto">
-                  <h1 className="text-slate-800 font-serif sm:text-2xl text-[15px] font-bold mb-1">
+                <div className="absolute inset-0 flex flex-col justify-center items-center bg-white bg-opacity-80">
+                  <h1 className="text-gray-800 font-serif text-xl font-bold mb-1">
                     No Data For This Time Period
                   </h1>
-                  <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-[12px] text-slate-600">
+                  <h3 className="w-11/12 max-w-md text-center text-lg text-gray-600 px-4">
                     Share your short link to view where your engagements are
-                    coming from
+                    coming from.
                   </h3>
                 </div>
               ) : (

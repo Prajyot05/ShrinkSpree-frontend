@@ -67,13 +67,13 @@ const CreateNewShorten: React.FC<CreateNewShortenProps> = ({ setOpen }) => {
     <div className="flex justify-center items-center bg-white rounded-md">
       <form
         onSubmit={handleSubmit(createShortUrlHandler)}
-        className="sm:w-[450px] w-[360px] relative shadow-custom pt-8 pb-5 sm:px-8 px-4 rounded-lg"
+        className="sm:w-[450px] w-[360px] relative shadow-lg pt-8 pb-5 sm:px-8 px-4 rounded-lg bg-white"
       >
-        <h1 className="font-montserrat sm:mt-0 mt-3 text-center font-bold sm:text-2xl text-[22px] text-slate-800">
+        <h1 className="text-center font-bold sm:text-2xl text-[22px] text-gray-900">
           Create New Shorten URL
         </h1>
 
-        <hr className="mt-2 sm:mb-5 mb-3 text-slate-950" />
+        <hr className="mt-2 mb-5 border-gray-300" />
 
         <div>
           <TextField
@@ -89,7 +89,7 @@ const CreateNewShorten: React.FC<CreateNewShortenProps> = ({ setOpen }) => {
         </div>
 
         <button
-          className="bg-customRed font-semibold text-white w-32 bg-custom-gradient py-2 transition-colors rounded-md my-3"
+          className="bg-[#1D4ED8] hover:bg-[#1E40AF] font-semibold text-white w-32 py-2 transition-colors rounded-md my-3"
           type="submit"
         >
           {loading ? "Loading..." : "Create"}
@@ -102,7 +102,7 @@ const CreateNewShorten: React.FC<CreateNewShortenProps> = ({ setOpen }) => {
               onClick={() => setOpen(false)}
               className="absolute right-2 top-2"
             >
-              <RxCross2 className="text-slate-800 text-3xl" />
+              <RxCross2 className="text-gray-800 text-3xl" />
             </button>
           </Tooltip>
         )}

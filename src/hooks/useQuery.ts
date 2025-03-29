@@ -21,35 +21,26 @@ export const useFetchMyShortUrls = (
   > = {
     queryKey: ["my-shortenurls"],
     queryFn: async () => {
-      const { data } = await api.get<{ data: ShortUrlData[] }>(
-        "/api/urls/myurls",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return data.data;
+      const { data } = await api.get("/api/urls/myurls", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("SHORTEN DATA: ", data);
+      return data ?? [];
     },
     select: (data) =>
       [...data].sort(
         (a, b) =>
           new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
       ),
-    onError,
     staleTime: 5000,
+    onError,
   };
 
-  return useQuery(
-    options as UseQueryOptions<
-      ShortUrlData[],
-      unknown,
-      ShortUrlData[],
-      [string]
-    >
-  );
+  return useQuery(options);
 };
 
 interface TotalClicksData {
@@ -84,16 +75,9 @@ export const useFetchTotalClicks = (
         count: data[key],
       }));
     },
-    onError,
     staleTime: 5000,
+    onError,
   };
 
-  return useQuery(
-    options as UseQueryOptions<
-      TotalClicksData[],
-      unknown,
-      TotalClicksData[],
-      [string]
-    >
-  );
+  return useQuery(options);
 };
